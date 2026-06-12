@@ -1,0 +1,6 @@
+{
+  "name": "RideSync",
+  "description": "Smart real-time group riding engine for motorcyclists. Voice-first assistance, live group tracking, and automated SOS emergency response.",
+  "requestFramePermissions": ["camera", "microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

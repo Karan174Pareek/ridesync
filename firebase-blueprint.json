@@ -1,0 +1,70 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Rider profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "medical_profile": {
+          "type": "object",
+          "properties": {
+            "blood_group": { "type": "string" },
+            "emergency_contacts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "phone": { "type": "string" },
+                  "relation": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "motorcycle": {
+          "type": "object",
+          "properties": {
+            "make": { "type": "string" },
+            "model": { "type": "string" },
+            "year": { "type": "number" }
+          }
+        },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "username", "created_at"]
+    },
+    "RideSession": {
+      "title": "Ride Session",
+      "description": "Information about an active or completed group ride",
+      "type": "object",
+      "properties": {
+        "room_code": { "type": "string" },
+        "session_status": { "type": "string", "enum": ["ACTIVE", "PAUSED", "COMPLETED"] },
+        "leader_id": { "type": "string" },
+        "participant_ids": { "type": "array", "items": { "type": "string" } },
+        "route_geometry": { "type": "object" },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "distance_meters": { "type": "number" },
+            "duration_seconds": { "type": "number" },
+            "average_speed": { "type": "number" }
+          }
+        },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "ended_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["room_code", "session_status", "leader_id", "created_at", "participant_ids"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": { "schema": "User", "description": "Rider profiles" },
+    "ride_sessions/{sessionId}": { "schema": "RideSession", "description": "Group ride sessions" }
+  }
+}
